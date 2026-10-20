@@ -14,3 +14,6 @@ class SearchTest(unittest.TestCase):
 
     def test_no_match_gives_an_empty_list(self):
         self.assertEqual(self.catalog.find_by_author("Austen"), [])
+
+    def test_spaces_around_the_name_are_ignored(self):
+        self.assertEqual(len(self.catalog.find_by_author("  Tolkien ")), 1)
