@@ -13,6 +13,14 @@ Use GitHub Flow:
 
 Do not push to `main` directly.
 
+## Run
+
+```
+python -m library.cli add 9780441013593 "Dune" "Frank Herbert"
+python -m library.cli list
+python -m library.cli search tolkien
+```
+
 ## Test
 
 ```
