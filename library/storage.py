@@ -15,6 +15,8 @@ def save(catalog, path=DEFAULT_FILE):
 
 def load(path=DEFAULT_FILE):
     catalog = Catalog()
+    if not Path(path).exists():
+        return catalog
     for item in json.loads(Path(path).read_text()):
         catalog.add_book(Book(**item))
     return catalog
