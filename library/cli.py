@@ -2,7 +2,8 @@
 
 import argparse
 
-from library.catalog import Book, Catalog
+from library import storage
+from library.catalog import Book
 
 
 def build_parser():
@@ -13,19 +14,30 @@ def build_parser():
     add.add_argument("title")
     add.add_argument("author")
     commands.add_parser("list", help="list all books")
+    search = commands.add_parser("search", help="find books by title or author")
+    search.add_argument("text")
     return parser
 
 
-def main(argv=None, catalog=None):
-    catalog = catalog or Catalog()
+def show(books):
+    for book in books:
+        print(f"{book.isbn}  {book.title} by {book.author}")
+
+
+def main(argv=None):
+    catalog = storage.load()
     args = build_parser().parse_args(argv)
     if args.command == "add":
         catalog.add_book(Book(args.isbn, args.title, args.author))
+        storage.save(catalog)
         print(f"Added {args.title}")
     elif args.command == "list":
-        for book in catalog.all_books():
-            print(f"{book.isbn}  {book.title} by {book.author}")
-    return catalog
+        show(catalog.all_books())
+    elif args.command == "search":
+        found = {book.isbn: book for book in catalog.find_by_title(args.text) + catalog.find_by_author(args.text)}
+        if not found:
+            print("No books found.")
+        show(found.values())
 
 
 if __name__ == "__main__":
