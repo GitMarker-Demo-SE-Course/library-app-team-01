@@ -8,7 +8,7 @@ Use GitHub Flow:
 
 1. Create a branch for each change.
 2. Push the branch and open a pull request.
-3. Ask your teammate to reveiw it. Discuss and fix what they find.
+3. Ask your teammate to review it. Discuss and fix what they find.
 4. Your teammate merges the pull request, and you delete the branch.
 
 Do not push to `main` directly.
