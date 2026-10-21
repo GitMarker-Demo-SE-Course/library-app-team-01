@@ -35,6 +35,8 @@ def main(argv=None):
         show(catalog.all_books())
     elif args.command == "search":
         found = {book.isbn: book for book in catalog.find_by_title(args.text) + catalog.find_by_author(args.text)}
+        if not found:
+            print("No books found.")
         show(found.values())
 
 
